@@ -12,6 +12,7 @@ class Role extends Component
 
     protected $listeners = [
         'delete' => 'destroy',
+        'refresh' => '$refresh',
         'isUpdate',
         'isCreate',
     ];
@@ -19,7 +20,8 @@ class Role extends Component
     public $search = '',
         $paginate = 10,
         $orderBy = 'name',
-        $order = 'desc';
+        $order = 'desc',
+        $update = false;
 
     // Render page
     public function render()

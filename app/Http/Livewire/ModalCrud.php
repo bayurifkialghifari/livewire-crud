@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Carbon\Carbon;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 
@@ -16,10 +17,13 @@ class ModalCrud extends Component
     public $button_close = true;
     public $button = '';
     public $content = '';
+    public $is_join = false;
     public $is_submit = true;
     public $is_bread = true;
     public $table_name = '';
     public $statusUpdate = false;
+    public $insert_message = 'Data created';
+    public $update_message = 'Data updated';
     public $bread_slug = '';
     public $crud;
     public $crud_field = [];
@@ -58,12 +62,44 @@ class ModalCrud extends Component
             $this->validate();
         }
 
+        $model;
+        $alert_message;
+
         // Check if bread
         if ($this->is_bread) {
+            $model = DB::table($this->crud->table_name);
         } else {
+            $model = DB::table($this->table_name);
         }
 
-        $this->emit('alert', 'ggw');
+        // Is insert or update
+        if ($this->statusUpdate) {
+            // Timestamp
+            $this->crud_value['updated_at'] = Carbon::now();
+
+            $model->find($this->crud_value['id'])->update($this->crud_value);
+
+            // Set alert message
+            $alert_message = $this->update_message;
+        } else {
+            // Unset id
+            unset($this->crud_value['id']);
+
+            // Timestamp
+            $this->crud_value['created_at'] = Carbon::now();
+            $this->crud_value['updated_at'] = Carbon::now();
+
+            $model->insert($this->crud_value);
+
+            // Set id
+            $this->crud_value['id'] = '';
+
+            // Set alert message
+            $alert_message = $this->insert_message;
+        }
+
+        $this->emit('refresh');
+        $this->emit('alert', $alert_message);
         $this->emit('closeModal');
     }
 

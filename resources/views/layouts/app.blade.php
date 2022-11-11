@@ -72,7 +72,6 @@
     @livewireScripts
     <script>
         document.addEventListener("DOMContentLoaded", ev => {
-
             // Toast Alert notification
             const Toast = Swal.mixin({
                 toast: true,
@@ -93,9 +92,9 @@
 
             // Close modal bootstrap 5
             window.livewire.on('closeModal', (id = 'modal-crud') => {
-                const myModal = new bootstrap.Modal(document.getElementById(id))
-                const modalBackdrop = document.getElementsByClassName('modal-backdrop')[0]
-                modalBackdrop.classList.remove('modal-backdrop')
+                const myModal = bootstrap.Modal.getInstance(document.getElementById('modal-crud'))
+                // const modalBackdrop = document.getElementsByClassName('modal-backdrop')[0]
+                // modalBackdrop.classList.remove('modal-backdrop')
                 myModal.hide()
             })
 
