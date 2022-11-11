@@ -1,11 +1,11 @@
-<div class="modal fade" id="modal-crud" tabindex="-1" aria-labelledby="modal-crud-title" aria-hidden="true">
+<div wire:ignore.self class="modal fade" id="modal-crud" tabindex="-1" aria-labelledby="modal-crud-title"
+    aria-hidden="true">
     <div class="modal-dialog modal-{{ $modal_size }} {{ $modal_class }}">
-
         <form @if ($is_submit) wire:submit.prevent="save" @endif>
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modal-crud-title">
-                        @if($title)
+                        @if ($title)
                             {{ $statusUpdate ? 'Update' : 'Create' }}
                         @endif
                         {{ $title ?? 'Modal Title' }}
@@ -26,19 +26,26 @@
                                         {{ $cf->display_name ?? $cf->field }}
                                     </label>
                                     @if ($cf->type == 'textarea')
-                                        <textarea   class="form-control {{ $cf->class_alt ?? '' }}"
-                                                    {{ $cf->is_required ? 'required' : '' }}
-                                                    {{ $cf->id_alt ? "id='${$cf->id_alt}'" : '' }}>
+                                        <textarea class="form-control {{ $cf->class_alt ?? '' }}" {{ $cf->is_required ? 'required' : '' }}
+                                            {{ $cf->id_alt ? "id='${$cf->id_alt}'" : '' }} wire:model.lazy="crud_value.{{ $cf->field }}">
                                         </textarea>
                                     @else
                                         <input type="{{ $cf->type ?? 'text' }}"
-                                            class="form-control {{ $cf->class_alt ?? '' }}"
+                                            class="
+                                                form-control {{ $cf->class_alt ?? '' }}
+                                                @error("crud_value.$cf->field")
+                                                    is-invalid
+                                                @enderror
+                                            "
                                             placeholder="{{ $cf->placeholder ?? '' }}"
-                                            {{ $cf->is_required ? 'required' : '' }}
+                                            {{-- {{ $cf->is_required ? 'required' : '' }} --}}
                                             {{ $cf->id_alt ? "id='{$cf->id_alt}'" : '' }}
                                             {{ $cf->file_accept ? "accept='{$cf->file_accept}'" : '' }}
-                                            >
+                                            wire:model.lazy="crud_value.{{ $cf->field }}">
                                     @endif
+                                    @error("crud_value.$cf->field")
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             @endforeach
                         </div>
@@ -54,6 +61,5 @@
                 </div>
             </div>
         </form>
-
     </div>
 </div>

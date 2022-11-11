@@ -106,7 +106,10 @@
             'is_required' => true,
             'description' => null,
             'file_accept' => null,
-            'rules' => ['name' => 'required'],
+            'rules' => ['crud_value.name' => 'required'],
         ],
+    ],
+    'crud_value' => [
+        'name' => '',
     ],
 ])
