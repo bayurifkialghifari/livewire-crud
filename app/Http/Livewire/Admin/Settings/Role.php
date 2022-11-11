@@ -19,8 +19,7 @@ class Role extends Component
     public $search = '',
         $paginate = 10,
         $orderBy = 'name',
-        $order = 'desc',
-        $statusUpdate = false;
+        $order = 'desc';
 
     // Render page
     public function render()
@@ -76,14 +75,13 @@ class Role extends Component
     // Set status update true
     public function isUpdate($id)
     {
-        $this->statusUpdate = true;
-
-        $this->emitTo('modelCrud', 'getDetail', $id);
+        $this->emitTo('modal-crud', 'getDetail', $id);
+        $this->emitTo('modal-crud', 'isUpdate');
     }
 
     // Set status update false
     public function isCreate()
     {
-        $this->statusUpdate = false;
+        $this->emitTo('modal-crud', 'isCreate');
     }
 }

@@ -16,6 +16,7 @@
                 </div>
                 <div class="modal-body">
                     @if ($crud_field)
+                        <input type="hidden" wire:model="crud_value.id">
                         <div class="row">
                             @foreach ($crud_field as $cf)
                                 @php

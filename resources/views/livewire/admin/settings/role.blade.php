@@ -44,7 +44,6 @@
                                 <i class="bi bi-plus"></i>
                                 Create
                             </button>
-                            {{ $statusUpdate ? 'true' : 'false' }}
                         </div>
                     </div>
                 </div>
@@ -93,7 +92,8 @@
 @livewire('modal-crud', [
     'title' => 'Role',
     'is_bread' => false,
-    'statusUpdate' => $statusUpdate,
+    'table_name' => 'roles',
+    'statusUpdate' => false,
     'crud' => [],
     'crud_field' => [
         [
@@ -106,10 +106,16 @@
             'is_required' => true,
             'description' => null,
             'file_accept' => null,
-            'rules' => ['crud_value.name' => 'required'],
         ],
     ],
+    'crud_rules' => [
+        'crud_value.name' => 'required',
+    ],
     'crud_value' => [
+        'id' => '',
         'name' => '',
+    ],
+    'crud_rule_messages' => [
+        'crud_value.name.required' => 'Name is required',
     ],
 ])
