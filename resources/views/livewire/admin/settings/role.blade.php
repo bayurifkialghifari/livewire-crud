@@ -94,6 +94,7 @@
     'is_join' => false,
     'is_bread' => false,
     'table_name' => 'roles',
+    'primary_key' => 'id',
     'statusUpdate' => false,
     'insert_message' => 'Data created',
     'update_message' => 'Data updated',

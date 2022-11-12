@@ -21,6 +21,7 @@ class ModalCrud extends Component
     public $is_submit = true;
     public $is_bread = true;
     public $table_name = '';
+    public $primary_key = 'id';
     public $statusUpdate = false;
     public $insert_message = 'Data created';
     public $update_message = 'Data updated';
@@ -77,13 +78,13 @@ class ModalCrud extends Component
             // Timestamp
             $this->crud_value['updated_at'] = Carbon::now();
 
-            $model->find($this->crud_value['id'])->update($this->crud_value);
+            $model->where($this->primary_key, $this->crud_value[$this->primary_key])->update($this->crud_value);
 
             // Set alert message
             $alert_message = $this->update_message;
         } else {
             // Unset id
-            unset($this->crud_value['id']);
+            unset($this->crud_value[$this->primary_key]);
 
             // Timestamp
             $this->crud_value['created_at'] = Carbon::now();
