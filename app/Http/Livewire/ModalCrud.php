@@ -133,8 +133,6 @@ class ModalCrud extends Component
         $this->statusUpdate = false;
 
         // Reset value data
-        foreach ($this->crud_value as $key => $value) {
-            $this->crud_value[$key] = '';
-        }
+        $this->crud_value = array_fill_keys(array_keys($this->crud_value), '');
     }
 }

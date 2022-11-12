@@ -44,7 +44,6 @@
                                 <i class="bi bi-plus"></i>
                                 Create
                             </button>
-                            {{$this->update ? 'qwe': 'asd'}}
                         </div>
                     </div>
                 </div>
