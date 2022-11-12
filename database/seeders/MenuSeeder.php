@@ -25,7 +25,7 @@ class MenuSeeder extends Seeder
             ],
             [
                 'id' => '2',
-                'name' => 'Settings',
+                'name' => 'Setting',
                 'url' => '#',
                 'icon' => 'bi bi-wrench',
             ],
