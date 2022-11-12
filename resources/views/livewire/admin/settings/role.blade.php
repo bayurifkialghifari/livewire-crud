@@ -53,7 +53,16 @@
                             <table class="table table-lg table-striped mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th wire:click="changeOrder('name')" style="cursor: pointer">
+                                            @if($orderBy == 'name')
+                                                @if($order == 'asc')
+                                                    <i class="bi bi-caret-up-fill"></i>
+                                                @else
+                                                    <i class="bi bi-caret-down-fill"></i>
+                                                @endif
+                                            @endif
+                                            Name
+                                        </th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>

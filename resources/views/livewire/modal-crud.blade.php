@@ -26,6 +26,10 @@
                                     <label {{ $cf->id_alt ? "for='#${$cf->id_alt}'" : '' }}>
                                         {{ $cf->display_name ?? $cf->field }}
                                     </label>
+                                    @if ($cf->description)
+                                        <br />
+                                        <span class="{{ $cf->description_class ?? '' }}">{{ $cf->description }}</span>
+                                    @endif
                                     @if ($cf->type == 'textarea')
                                         <textarea class="form-control {{ $cf->class_alt ?? '' }}" {{ $cf->is_required ? 'required' : '' }}
                                             {{ $cf->id_alt ? "id='${$cf->id_alt}'" : '' }} wire:model.lazy="crud_value.{{ $cf->field }}">
@@ -38,8 +42,7 @@
                                                     is-invalid
                                                 @enderror
                                             "
-                                            placeholder="{{ $cf->placeholder ?? '' }}"
-                                            {{-- {{ $cf->is_required ? 'required' : '' }} --}}
+                                            placeholder="{{ $cf->placeholder ?? '' }}" {{-- {{ $cf->is_required ? 'required' : '' }} --}}
                                             {{ $cf->id_alt ? "id='{$cf->id_alt}'" : '' }}
                                             {{ $cf->file_accept ? "accept='{$cf->file_accept}'" : '' }}
                                             wire:model.lazy="crud_value.{{ $cf->field }}">
