@@ -104,7 +104,6 @@
 
                 const confirm = await Swal.fire({
                     title: title,
-                    text: `${content != '' ? content : `Yes, ${type} it!` }`,
                     icon: icon,
                     confirmButtonText: 'Ok',
                     showCancelButton: true,
