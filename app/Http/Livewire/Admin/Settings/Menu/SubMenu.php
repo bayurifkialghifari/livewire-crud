@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Settings;
+namespace App\Http\Livewire\Admin\Settings\Menu;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Menu as Menus;
+use Illuminate\Support\Facades\Route;
+use App\Models\SubMenu as SubMenus;
+use App\Models\Menu;
 
-class Menu extends Component
+class SubMenu extends Component
 {
     use WithPagination;
 
@@ -16,21 +18,34 @@ class Menu extends Component
         'isUpdate',
         'isCreate',
     ];
-    public $searchable = ['name', 'url', 'class', 'icon'];
+    public $searchable = ['menus.name', 'sub_menus.name', 'sub_menus.url', 'sub_menus.class', 'sub_menus.icon'];
     public $search = '',
+        $menu_id,
         $paginate = 10,
-        $orderBy = 'index',
+        $orderBy = 'sub_menus.index',
         $order = 'asc',
         $update = false;
+
+    // Get parameter from route
+    public function mount($id)
+    {
+        $this->menu_id = $id;
+    }
 
     // Render page
     public function render()
     {
         // Active menu
-        $active_menu = ['Setting', 'Menu'];
+        $active_menu = ['Setting', 'Sub Menu'];
 
         // Get data
-        $sql = Menus::orderBy($this->orderBy, $this->order)->latest();
+        $menu_id = $this->menu_id;
+        $menu = Menu::find($menu_id)->first();
+        $sql = SubMenus::leftJoin('menus', 'menus.id', '=', 'sub_menus.menu_id')
+            ->where('sub_menus.menu_id', $menu_id)
+            ->orderBy($this->orderBy, $this->order)
+            ->select('sub_menus.*', 'menus.name as parent')
+            ->latest();
         $data = $sql->paginate($this->paginate);
 
         // Search data
@@ -46,7 +61,7 @@ class Menu extends Component
             $this->resetPage();
         }
 
-        return view('livewire.admin.settings.menu', compact('data'))->layoutData(compact('active_menu'));
+        return view('livewire.admin.settings.menu.sub-menu', compact('data', 'menu', 'menu_id'))->layoutData(compact('active_menu'));
     }
 
     // Order by
@@ -62,7 +77,7 @@ class Menu extends Component
     // Delete data
     public function destroy($id)
     {
-        $exe = Menus::find($id);
+        $exe = SubMenus::find($id);
         $exe->delete();
 
         $this->emit('alert', 'Delete data success');

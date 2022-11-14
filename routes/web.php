@@ -37,6 +37,7 @@ Route::group([
     // Settings
     Route::get('/setting-role', App\Http\Livewire\Admin\Settings\Role::class);
     Route::get('/setting-menu', App\Http\Livewire\Admin\Settings\Menu::class);
+    Route::get('/setting-menu/sub-menu/{id}', App\Http\Livewire\Admin\Settings\Menu\SubMenu::class);
     Route::get('/setting-user', App\Http\Livewire\Admin\Settings\User::class);
 
 });
