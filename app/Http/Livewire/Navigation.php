@@ -12,7 +12,7 @@ class Navigation extends Component
 
     public function render()
     {
-        $menu = Menu::all();
+        $menu = Menu::orderBy('index', 'asc')->get();
         $role_has_menu = new RoleHasMenu;
 
         return view('livewire.navigation', compact('menu', 'role_has_menu'));
