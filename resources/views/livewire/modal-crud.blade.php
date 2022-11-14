@@ -16,7 +16,7 @@
                 </div>
                 <div class="modal-body">
                     @if ($crud_field)
-                        <input type="hidden" wire:model="crud_value.id">
+                        <input type="hidden" wire:model="crud_value.{{ $primary_key }}">
                         <div class="row">
                             @foreach ($crud_field as $cf)
                                 @php
@@ -57,7 +57,7 @@
                                             {{-- Get value select --}}
                                             @if($cf->source)
                                                 @php
-                                                    $source = $db->table($cf->source)->get();
+                                                    $source = \Illuminate\Support\Facades\DB::table($cf->source)->get();
                                                 @endphp
                                                 @foreach ($source as $src)
                                                     <option value="{{ $src->{$cf->source_id} }}">{{ $src->{$cf->source_value} }}</option>
