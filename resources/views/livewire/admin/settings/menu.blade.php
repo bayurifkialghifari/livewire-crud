@@ -63,6 +63,16 @@
                                             @endif
                                             Name
                                         </th>
+                                        <th wire:click="changeOrder('index')" style="cursor: pointer">
+                                            @if($orderBy == 'index')
+                                                @if($order == 'asc')
+                                                    <i class="bi bi-caret-up-fill"></i>
+                                                @else
+                                                    <i class="bi bi-caret-down-fill"></i>
+                                                @endif
+                                            @endif
+                                            Index
+                                        </th>
                                         <th wire:click="changeOrder('url')" style="cursor: pointer">
                                             @if($orderBy == 'url')
                                                 @if($order == 'asc')
@@ -100,8 +110,9 @@
                                     @forelse ($data as $d)
                                         <tr>
                                             <td>{{ $d->name }}</td>
+                                            <td>{{ $d->index }}</td>
                                             <td>{{ $d->url }}</td>
-                                            <td>{{ $d->class }}</td>
+                                            <td>{{ $d->class ?? '-' }}</td>
                                             <td>{{ $d->icon }}</td>
                                             <td class="text-center">
                                                 <a class="btn btn-primary btn-sm"
@@ -156,6 +167,7 @@
             'is_required' => true,
             'description' => null,
             'file_accept' => null,
+            'default_value' => null,
         ],
         [
             'field' => 'url',
@@ -168,6 +180,7 @@
             'description' => 'example "/admin/setting-menu"',
             'description_class' => 'fw-bold',
             'file_accept' => null,
+            'default_value' => null,
         ],
         [
             'field' => 'class',
@@ -180,6 +193,7 @@
             'description' => 'optional',
             'description_class' => 'fw-bold',
             'file_accept' => null,
+            'default_value' => null,
         ],
         [
             'field' => 'icon',
@@ -192,13 +206,27 @@
             'description' => 'optional, use bootstap icon "bi bi-user"',
             'description_class' => 'fw-bold',
             'file_accept' => null,
+            'default_value' => null,
+        ],
+        [
+            'field' => 'index',
+            'type' => 'number',
+            'display_name' => 'Index',
+            'placeholder' => 'Index menu',
+            'class_alt' => null,
+            'id_alt' => null,
+            'is_required' => true,
+            'description' => null,
+            'description_class' => null,
+            'file_accept' => null,
+            'default_value' => '1',
         ],
     ],
     'crud_rules' => [
         'crud_value.name' => 'required',
         'crud_value.url' => 'required',
-        'crud_value.class' => 'required',
         'crud_value.icon' => 'required',
+        'crud_value.index' => 'required',
     ],
     'crud_value' => [
         'id' => '',
@@ -206,11 +234,12 @@
         'url' => '',
         'class' => '',
         'icon' => '',
+        'index' => '',
     ],
     'crud_rule_messages' => [
         'crud_value.name.required' => 'Name is required',
         'crud_value.url.required' => 'Url is required',
-        'crud_value.class.required' => 'Class is required',
         'crud_value.icon.required' => 'Icon is required',
+        'crud_value.index.required' => 'Index is required',
     ],
 ])

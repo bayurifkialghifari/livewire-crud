@@ -134,6 +134,8 @@ class ModalCrud extends Component
         $this->statusUpdate = false;
 
         // Reset value data
-        $this->crud_value = array_fill_keys(array_keys($this->crud_value), '');
+        foreach($this->crud_field as $key => $val) {
+            $this->crud_value[$val['field']] = $val['default_value'] ?? '';
+        }
     }
 }

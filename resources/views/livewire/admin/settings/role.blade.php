@@ -119,6 +119,7 @@
             'is_required' => true,
             'description' => null,
             'file_accept' => null,
+            'default_value' => null,
         ],
     ],
     'crud_rules' => [
