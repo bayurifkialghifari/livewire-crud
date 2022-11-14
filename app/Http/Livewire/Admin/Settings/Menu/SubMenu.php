@@ -40,7 +40,7 @@ class SubMenu extends Component
 
         // Get data
         $menu_id = $this->menu_id;
-        $menu = Menu::find($menu_id)->first();
+        $menu = Menu::where('id', $menu_id)->first();
         $sql = SubMenus::leftJoin('menus', 'menus.id', '=', 'sub_menus.menu_id')
             ->where('sub_menus.menu_id', $menu_id)
             ->orderBy($this->orderBy, $this->order)

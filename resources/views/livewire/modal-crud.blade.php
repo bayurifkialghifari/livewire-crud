@@ -24,7 +24,9 @@
                                 @endphp
                                 <div class="col-md-12">
                                     <label {{ $cf->id_alt ? "for='#${$cf->id_alt}'" : '' }}>
-                                        {{ $cf->display_name ?? $cf->field }}
+                                        @if ($cf->type != 'hidden')
+                                            {{ $cf->display_name ?? $cf->field }}
+                                        @endif
                                     </label>
                                     @if ($cf->description)
                                         <br />
