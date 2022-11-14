@@ -31,9 +31,37 @@
                                         <span class="{{ $cf->description_class ?? '' }}">{{ $cf->description }}</span>
                                     @endif
                                     @if ($cf->type == 'textarea')
-                                        <textarea class="form-control {{ $cf->class_alt ?? '' }}" {{ $cf->is_required ? 'required' : '' }}
+                                        <textarea
+                                            class="
+                                                    form-control {{ $cf->class_alt ?? '' }}
+                                                    @error("crud_value.$cf->field")
+                                                        is-invalid
+                                                    @enderror
+                                            "
+                                            placeholder="{{ $cf->placeholder ?? '' }}" {{-- {{ $cf->is_required ? 'required' : '' }} --}}
                                             {{ $cf->id_alt ? "id='${$cf->id_alt}'" : '' }} wire:model.lazy="crud_value.{{ $cf->field }}">
                                         </textarea>
+                                    @elseif($cf->type == 'select')
+                                        <select
+                                            class="
+                                                form-control {{ $cf->class_alt ?? '' }}
+                                                @error("crud_value.$cf->field")
+                                                    is-invalid
+                                                @enderror
+                                            "
+                                            {{ $cf->id_alt ? "id='{$cf->id_alt}'" : '' }}
+                                            wire:model.lazy="crud_value.{{ $cf->field }}">
+                                            <option value="">--Select {{ $cf->display_name ?? $cf->field }}--</option>
+                                            {{-- Get value select --}}
+                                            @if($cf->source)
+                                                @php
+                                                    $source = $db->table($cf->source)->get();
+                                                @endphp
+                                                @foreach ($source as $src)
+                                                    <option value="{{ $src->{$cf->source_id} }}">{{ $src->{$cf->source_value} }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
                                     @else
                                         <input type="{{ $cf->type ?? 'text' }}"
                                             class="

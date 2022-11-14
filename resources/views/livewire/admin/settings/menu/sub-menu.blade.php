@@ -178,6 +178,9 @@
             'description' => null,
             'file_accept' => null,
             'default_value' => null,
+            'source' => null,
+            'source_id' => null,
+            'source_value' => null,
         ],
         [
             'field' => 'url',
@@ -191,6 +194,9 @@
             'description_class' => 'fw-bold',
             'file_accept' => null,
             'default_value' => null,
+            'source' => null,
+            'source_id' => null,
+            'source_value' => null,
         ],
         [
             'field' => 'class',
@@ -204,6 +210,9 @@
             'description_class' => 'fw-bold',
             'file_accept' => null,
             'default_value' => null,
+            'source' => null,
+            'source_id' => null,
+            'source_value' => null,
         ],
         [
             'field' => 'icon',
@@ -217,6 +226,9 @@
             'description_class' => 'fw-bold',
             'file_accept' => null,
             'default_value' => null,
+            'source' => null,
+            'source_id' => null,
+            'source_value' => null,
         ],
         [
             'field' => 'index',
@@ -230,6 +242,9 @@
             'description_class' => null,
             'file_accept' => null,
             'default_value' => '1',
+            'source' => null,
+            'source_id' => null,
+            'source_value' => null,
         ],
     ],
     'crud_rules' => [

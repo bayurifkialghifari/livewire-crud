@@ -120,6 +120,9 @@
             'description' => null,
             'file_accept' => null,
             'default_value' => null,
+            'source' => null,
+            'source_id' => null,
+            'source_value' => null,
         ],
     ],
     'crud_rules' => [

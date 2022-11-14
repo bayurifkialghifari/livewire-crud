@@ -40,7 +40,10 @@ class ModalCrud extends Component
             $this->crud_field = BreadField::where('bread_id', $this->crud->id)->get();
         }
 
-        return view('livewire.modal-crud');
+        // DB instance
+        $db = new DB;
+
+        return view('livewire.modal-crud', compact('db'));
     }
 
     // Rules input
