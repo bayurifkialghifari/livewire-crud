@@ -212,7 +212,7 @@
         ],
     ],
     'crud_rules' => [
-        'crud_value.roles-name' => 'required',
+        'crud_value.roles-id' => 'required',
         'crud_value.name' => 'required',
         'crud_value.email' => 'required',
         'crud_value.password' => 'required',

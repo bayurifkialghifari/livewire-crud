@@ -85,8 +85,16 @@ class ModalCrud extends Component
             }
         }
 
+        // Check if password
+        if (isset($this->crud_value['password'])) {
+            $this->crud_value['password'] = bcrypt($this->crud_value['password']);
+        }
+
         // Is insert or update
         if ($this->statusUpdate) {
+            // Unset created at
+            unset($this->crud_value['created_at']);
+
             // Timestamp
             $this->crud_value['updated_at'] = Carbon::now();
 
@@ -221,7 +229,7 @@ class ModalCrud extends Component
         if ($val['type'] !== 'password') {
             $this->crud_value[$val['field']] = $model[$val['field']];
         } else {
-            $this->crud_value[$val['field']] = $model[$val['field']];
+            $this->crud_value[$val['field']] = '';
         }
     }
 
