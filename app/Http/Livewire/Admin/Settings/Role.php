@@ -20,7 +20,7 @@ class Role extends Component
     public $search = '',
         $paginate = 10,
         $orderBy = 'name',
-        $order = 'desc',
+        $order = 'asc',
         $update = false;
 
     // Render page

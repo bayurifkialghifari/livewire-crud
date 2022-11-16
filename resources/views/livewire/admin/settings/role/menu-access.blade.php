@@ -7,8 +7,11 @@
             <li class="breadcrumb-item">
                 <a href="#">Setting</a>
             </li>
+            <li class="breadcrumb-item" aria-current="page">
+                Role {{ ucfirst($role->name) }}
+            </li>
             <li class="breadcrumb-item active" aria-current="page">
-                Role
+                Menu Access
             </li>
         </ol>
     </nav>
@@ -63,25 +66,15 @@
                                             @endif
                                             Role
                                         </th>
-                                        <th wire:click="changeOrder('users.name')" style="cursor: pointer">
-                                            @if($orderBy == 'users.name')
+                                        <th wire:click="changeOrder('menus.name')" style="cursor: pointer">
+                                            @if($orderBy == 'menus.name')
                                                 @if($order == 'asc')
                                                     <i class="bi bi-caret-up-fill"></i>
                                                 @else
                                                     <i class="bi bi-caret-down-fill"></i>
                                                 @endif
                                             @endif
-                                            Name
-                                        </th>
-                                        <th wire:click="changeOrder('users.email')" style="cursor: pointer">
-                                            @if($orderBy == 'users.email')
-                                                @if($order == 'asc')
-                                                    <i class="bi bi-caret-up-fill"></i>
-                                                @else
-                                                    <i class="bi bi-caret-down-fill"></i>
-                                                @endif
-                                            @endif
-                                            Email
+                                            Menu
                                         </th>
                                         <th>Action</th>
                                     </tr>
@@ -89,15 +82,17 @@
                                 <tbody>
                                     @forelse ($data as $d)
                                         <tr>
-                                            <td>{{ ucfirst($d->role[0]->name) }}</td>
-                                            <td>{{ $d->name }}</td>
-                                            <td>{{ $d->email }}</td>
+                                            <td>{{ $d->role }}</td>
+                                            <td>{{ $d->menu }}</td>
+                                            @php
+                                                $sub_menus = $menu_model->find($d->menu_id)->sub_menus;
+                                            @endphp
                                             <td class="text-center">
-                                                <a class="btn btn-primary btn-sm"
-                                                    wire:click="isUpdate('{{ $d->id }}')" data-bs-toggle="modal"
-                                                    data-bs-target="#modal-crud">
-                                                    <i class="bi bi-pencil"></i> Update
-                                                </a>
+                                                @if(count($sub_menus))
+                                                    <button class="btn btn-primary btn-sm">
+                                                        <i class="bi bi-menu-down"></i> Sub Menu
+                                                    </button>
+                                                @endif
                                                 <button class="btn btn-danger btn-sm"
                                                     wire:click="confirmDelete('{{ $d->id }}')">
                                                     <i class="bi bi-trash"></i> Delete
@@ -121,26 +116,10 @@
 </section>
 
 @livewire('modal-crud', [
-    'title' => 'User',
-    'is_join' => true,
-    'join' => [
-        [
-            'origin_table' => 'model_has_roles',
-            'origin_key' => 'model_id',
-            'foreign_table' => 'users',
-            'foreign_key' => 'id',
-            'join_type' => 'left',
-        ],
-        [
-            'origin_table' => 'roles',
-            'origin_key' => 'id',
-            'foreign_table' => 'model_has_roles',
-            'foreign_key' => 'role_id',
-            'join_type' => 'left',
-        ],
-    ],
+    'title' => 'Menu Acess ' . ucfirst($role->name),
+    'is_join' => false,
     'is_bread' => false,
-    'table_name' => 'users',
+    'table_name' => 'role_has_menus',
     'primary_key' => 'id',
     'statusUpdate' => false,
     'insert_message' => 'Data created',
@@ -148,12 +127,25 @@
     'crud' => [],
     'crud_field' => [
         [
-            'field' => 'roles-id',
-            'foreign_table' => 'model_has_roles',
-            'foreign_key' => 'model_id',
-            'foreign_field' => 'role_id',
+            'field' => 'role_id',
             'type' => 'select',
             'display_name' => 'Role',
+            'placeholder' => null,
+            'class_alt' => null,
+            'id_alt' => null,
+            'is_readonly' => true,
+            'is_required' => true,
+            'description' => null,
+            'file_accept' => null,
+            'default_value' => $role->id,
+            'source' => 'roles',
+            'source_id' => 'id',
+            'source_value' => 'name',
+        ],
+        [
+            'field' => 'menu_id',
+            'type' => 'select',
+            'display_name' => 'Menu',
             'placeholder' => null,
             'class_alt' => null,
             'id_alt' => null,
@@ -161,73 +153,20 @@
             'description' => null,
             'file_accept' => null,
             'default_value' => null,
-            'source' => 'roles',
+            'source' => 'menus',
             'source_id' => 'id',
             'source_value' => 'name',
         ],
-        [
-            'field' => 'name',
-            'type' => 'text',
-            'display_name' => 'Name',
-            'placeholder' => 'Name',
-            'class_alt' => null,
-            'id_alt' => null,
-            'is_required' => true,
-            'description' => null,
-            'file_accept' => null,
-            'default_value' => null,
-            'source' => null,
-            'source_id' => null,
-            'source_value' => null,
-        ],
-        [
-            'field' => 'email',
-            'type' => 'email',
-            'display_name' => 'Email',
-            'placeholder' => 'Email',
-            'class_alt' => null,
-            'id_alt' => null,
-            'is_required' => true,
-            'description' => null,
-            'file_accept' => null,
-            'default_value' => null,
-            'source' => null,
-            'source_id' => null,
-            'source_value' => null,
-        ],
-        [
-            'field' => 'password',
-            'type' => 'password',
-            'display_name' => 'Password',
-            'placeholder' => 'Password',
-            'class_alt' => null,
-            'id_alt' => null,
-            'is_required' => true,
-            'description' => null,
-            'file_accept' => null,
-            'default_value' => null,
-            'source' => null,
-            'source_id' => null,
-            'source_value' => null,
-        ],
     ],
     'crud_rules' => [
-        'crud_value.roles-id' => 'required',
-        'crud_value.name' => 'required',
-        'crud_value.email' => 'required',
-        'crud_value.password' => 'required',
+        'crud_value.menu_id' => 'required',
     ],
     'crud_value' => [
         'id' => '',
-        'roles-id' => '',
-        'name' => '',
-        'email' => '',
-        'password' => '',
+        'role_id' => '',
+        'menu_id' => '',
     ],
     'crud_rule_messages' => [
-        'crud_value.roles-id.required' => 'Role is required',
-        'crud_value.name.required' => 'Name is required',
-        'crud_value.email.required' => 'Email is required',
-        'crud_value.password.required' => 'Password is required',
+        'crud_value.menu_id.required' => 'Menu is required',
     ],
 ])

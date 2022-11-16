@@ -72,6 +72,10 @@
                                             <td>{{ $d->name }}</td>
                                             <td class="text-center">
                                                 <a class="btn btn-primary btn-sm"
+                                                    href="{{ url('/admin/setting-role/menu-access/' . $d->id)  }}">
+                                                    <i class="bi bi-lock-fill"></i> Menu Access
+                                                </a>
+                                                <a class="btn btn-primary btn-sm"
                                                     wire:click="isUpdate('{{ $d->id }}')" data-bs-toggle="modal"
                                                     data-bs-target="#modal-crud">
                                                     <i class="bi bi-pencil"></i> Update

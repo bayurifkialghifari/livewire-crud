@@ -41,6 +41,9 @@
                                                     @enderror
                                             "
                                             placeholder="{{ $cf->placeholder ?? '' }}" {{-- {{ $cf->is_required ? 'required' : '' }} --}}
+                                            @if(isset($cf->is_readonly))
+                                                {{ $cf->is_readonly ? 'readonly' : '' }}
+                                            @endif
                                             {{ $cf->id_alt ? "id='${$cf->id_alt}'" : '' }} wire:model.lazy="crud_value.{{ $cf->field }}">
                                         </textarea>
                                     @elseif($cf->type == 'select')
@@ -52,6 +55,9 @@
                                                 @enderror
                                             "
                                             {{ $cf->id_alt ? "id='{$cf->id_alt}'" : '' }}
+                                            @if(isset($cf->is_readonly))
+                                                {{ $cf->is_readonly ? 'disabled' : '' }}
+                                            @endif
                                             wire:model.lazy="crud_value.{{ $cf->field }}">
                                             <option value="">--Select {{ $cf->display_name ?? $cf->field }}--</option>
                                             {{-- Get value select --}}
@@ -73,6 +79,9 @@
                                                 @enderror
                                             "
                                             placeholder="{{ $cf->placeholder ?? '' }}" {{-- {{ $cf->is_required ? 'required' : '' }} --}}
+                                            @if(isset($cf->is_readonly))
+                                                {{ $cf->is_readonly ? 'readonly' : '' }}
+                                            @endif
                                             {{ $cf->id_alt ? "id='{$cf->id_alt}'" : '' }}
                                             {{ $cf->file_accept ? "accept='{$cf->file_accept}'" : '' }}
                                             wire:model.lazy="crud_value.{{ $cf->field }}">

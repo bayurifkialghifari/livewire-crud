@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Settings\Menu;
+namespace App\Http\Livewire\Admin\Settings\Role;
 
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Route;
-use App\Models\SubMenu as SubMenus;
+use App\Models\RoleHasMenu;
+use Spatie\Permission\Models\Role;
 use App\Models\Menu;
 
-class SubMenu extends Component
+class MenuAccess extends Component
 {
     use WithPagination;
 
@@ -18,30 +19,37 @@ class SubMenu extends Component
         'isUpdate',
         'isCreate',
     ];
-    public $searchable = ['menus.name', 'sub_menus.name', 'sub_menus.url', 'sub_menus.class', 'sub_menus.icon'];
+    public $searchable = ['menus.name', 'sub_menus.name', 'roles.name'];
     public $search = '',
-        $menu_id,
+        $role_id,
         $paginate = 10,
-        $orderBy = 'sub_menus.index',
+        $orderBy = 'menus.name',
         $order = 'asc',
         $update = false;
 
     // Get parameter from route
     public function mount($id)
     {
-        $this->menu_id = $id;
+        $this->role_id = $id;
     }
 
     // Render page
     public function render()
     {
+        // Active menu
+        $active_menu = ['Setting', 'Menu Access'];
+
         // Get data
-        $menu_id = $this->menu_id;
-        $menu = Menu::where('id', $menu_id)->first();
-        $sql = SubMenus::leftJoin('menus', 'menus.id', '=', 'sub_menus.menu_id')
-            ->where('sub_menus.menu_id', $menu_id)
+        $role_id = $this->role_id;
+        $role = Role::find($role_id);
+        $menu = Menu::all();
+        $menu_model = new Menu;
+        $sql = RoleHasMenu::leftJoin('menus', 'role_has_menus.menu_id', '=', 'menus.id')
+            ->leftJoin('roles', 'role_has_menus.role_id', '=', 'roles.id')
+            ->where('role_has_menus.role_id', $role_id)
+            ->whereNull('role_has_menus.sub_menu_id')
             ->orderBy($this->orderBy, $this->order)
-            ->select('sub_menus.*', 'menus.name as parent')
+            ->select('role_has_menus.*', 'menus.name as menu', 'roles.name as role')
             ->latest();
         $data = $sql->paginate($this->paginate);
 
@@ -58,10 +66,7 @@ class SubMenu extends Component
             $this->resetPage();
         }
 
-        // Active menu
-        $active_menu = ['Setting', 'Sub Menu ' . $menu->name];
-
-        return view('livewire.admin.settings.menu.sub-menu', compact('data', 'menu', 'menu_id'))->layoutData(compact('active_menu'));
+        return view('livewire.admin.settings.role.menu-access', compact('data', 'menu', 'menu_model', 'role', 'role_id'))->layoutData(compact('active_menu'));
     }
 
     // Order by
@@ -77,7 +82,7 @@ class SubMenu extends Component
     // Delete data
     public function destroy($id)
     {
-        $exe = SubMenus::find($id);
+        $exe = RoleHasMenu::find($id);
         $exe->delete();
 
         $this->emit('alert', 'Delete data success');

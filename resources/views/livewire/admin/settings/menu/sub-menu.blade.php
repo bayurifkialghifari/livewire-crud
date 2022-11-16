@@ -5,7 +5,7 @@
                 <a href="{{ url('admin') }}">Dashboard</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="#">Setting</a>
+                <a href="{{ url('admin/setting-menu') }}">Setting</a>
             </li>
             <li class="breadcrumb-item" aria-current="page">
                 Menu {{ $menu->name }}
