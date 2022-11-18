@@ -10,6 +10,10 @@ class Navigation extends Component
 {
     public $active_menu;
 
+    protected $listeners = [
+        'refresh' => '$refresh',
+    ];
+
     public function render()
     {
         $menu = Menu::orderBy('index', 'asc')->get();

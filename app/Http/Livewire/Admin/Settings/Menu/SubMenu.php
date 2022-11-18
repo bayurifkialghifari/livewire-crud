@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Admin\Settings\Menu;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Support\Facades\Route;
 use App\Models\SubMenu as SubMenus;
 use App\Models\Menu;
 

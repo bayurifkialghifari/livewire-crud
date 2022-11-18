@@ -57,8 +57,8 @@
                                 <thead>
                                     <tr>
                                         <th wire:click="changeOrder('roles.name')" style="cursor: pointer">
-                                            @if($orderBy == 'roles.name')
-                                                @if($order == 'asc')
+                                            @if ($orderBy == 'roles.name')
+                                                @if ($order == 'asc')
                                                     <i class="bi bi-caret-up-fill"></i>
                                                 @else
                                                     <i class="bi bi-caret-down-fill"></i>
@@ -67,8 +67,8 @@
                                             Role
                                         </th>
                                         <th wire:click="changeOrder('menus.name')" style="cursor: pointer">
-                                            @if($orderBy == 'menus.name')
-                                                @if($order == 'asc')
+                                            @if ($orderBy == 'menus.name')
+                                                @if ($order == 'asc')
                                                     <i class="bi bi-caret-up-fill"></i>
                                                 @else
                                                     <i class="bi bi-caret-down-fill"></i>
@@ -88,8 +88,10 @@
                                                 $sub_menus = $menu_model->find($d->menu_id)->sub_menus;
                                             @endphp
                                             <td class="text-center">
-                                                @if(count($sub_menus))
-                                                    <button class="btn btn-primary btn-sm">
+                                                @if (count($sub_menus))
+                                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-sub-menu"
+                                                        wire:click="getSubMenu('{{ $d->id }}')">
                                                         <i class="bi bi-menu-down"></i> Sub Menu
                                                     </button>
                                                 @endif
@@ -111,6 +113,42 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    {{-- Modal sub menu --}}
+    <div wire:ignore.self class="modal fade" id="modal-sub-menu" tabindex="-1" aria-labelledby="modal-sub-menu-title"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <form wire:submit.prevent="save_submenu">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-sub-menu-title">
+                            Sub Menu
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            @foreach ($sub_menu as $sm)
+                                <div class="col-md-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" wire:model="sub_menu_select" type="checkbox" value="{{ $sm->id }}"
+                                            id="sub-check-{{ $sm->id }}">
+                                        <label class="form-check-label" for="{{ $sm->id }}">
+                                            {{ $sm->name }}
+                                        </label>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </section>

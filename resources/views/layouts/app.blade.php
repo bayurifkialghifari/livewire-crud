@@ -92,7 +92,7 @@
 
             // Close modal bootstrap 5
             window.livewire.on('closeModal', (id = 'modal-crud') => {
-                const myModal = bootstrap.Modal.getInstance(document.getElementById('modal-crud'))
+                const myModal = bootstrap.Modal.getInstance(document.getElementById(id))
                 // const modalBackdrop = document.getElementsByClassName('modal-backdrop')[0]
                 // modalBackdrop.classList.remove('modal-backdrop')
                 myModal.hide()

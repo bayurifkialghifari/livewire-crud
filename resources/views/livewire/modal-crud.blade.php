@@ -1,4 +1,4 @@
-<div wire:ignore.self class="modal fade" id="modal-crud" tabindex="-1" aria-labelledby="modal-crud-title"
+<div wire:ignore.self class="modal fade" id="{{ $modal_id ?? 'modal-crud' }}" tabindex="-1" aria-labelledby="modal-crud-title"
     aria-hidden="true">
     <div class="modal-dialog modal-{{ $modal_size }} {{ $modal_class }}">
         <form @if ($is_submit) wire:submit.prevent="save" @endif>

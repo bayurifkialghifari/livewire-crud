@@ -14,6 +14,7 @@ class ModalCrud extends Component
     public $title;
     public $modal_class = '';
     public $modal_size = 'md';
+    public $modal_id = null;
     public $button_close = true;
     public $button = '';
     public $content = '';
