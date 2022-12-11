@@ -9,7 +9,7 @@ class SubMenu extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['menu_id', 'name', 'url', 'class', 'icon'];
+    protected $fillable = ['menu_id', 'name', 'url', 'class', 'icon', 'index'];
 
     public function menu()
     {

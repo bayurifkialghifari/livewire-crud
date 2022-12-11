@@ -19,15 +19,24 @@ class MenuSeeder extends Seeder
         $menu = [
             [
                 'id' => '1',
+                'index' => '1',
                 'name' => 'Dashboard',
                 'url' => '/admin',
                 'icon' => 'bi bi-grid-fill',
             ],
             [
                 'id' => '2',
+                'index' => '3',
                 'name' => 'Setting',
                 'url' => '#',
                 'icon' => 'bi bi-wrench',
+            ],
+            [
+                'id' => '3',
+                'index' => '2',
+                'name' => 'BREAD',
+                'url' => '#',
+                'icon' => 'bi bi-patch-plus',
             ],
         ];
 
@@ -38,16 +47,19 @@ class MenuSeeder extends Seeder
         $sub_menu = [
             [
                 'menu_id' => '2',
+                'index' => '1',
                 'name' => 'Role',
                 'url' => '/admin/setting-role',
             ],
             [
                 'menu_id' => '2',
+                'index' => '2',
                 'name' => 'Menu',
                 'url' => '/admin/setting-menu',
             ],
             [
                 'menu_id' => '2',
+                'index' => '3',
                 'name' => 'User',
                 'url' => '/admin/setting-user',
             ],
