@@ -88,6 +88,7 @@ class MenuAccess extends Component
         $exe = RoleHasMenu::find($id);
         $exe->delete();
 
+        $this->emitTo('navigation', 'refresh');
         $this->emit('alert', 'Delete data success');
     }
 
