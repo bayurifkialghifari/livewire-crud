@@ -34,6 +34,9 @@ Route::group([
 
     Route::get('/', App\Http\Livewire\Admin\Dashboard::class);
 
+    // BREAD
+    Route::get('/bread', App\Http\Livewire\Admin\Bread::class);
+
     // Settings
     Route::get('/setting-role', App\Http\Livewire\Admin\Settings\Role::class);
     Route::get('/setting-role/menu-access/{id}', App\Http\Livewire\Admin\Settings\Role\MenuAccess::class);

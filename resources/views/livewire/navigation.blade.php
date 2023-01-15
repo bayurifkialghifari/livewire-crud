@@ -68,7 +68,7 @@
                                 {{ in_array($mn->name, $active_menu) ? 'active' : '' }}
                     ">
                         <a href="{{ url($mn->url) }}" class="sidebar-link">
-                            <i class="bi bi-grid-fill"></i>
+                            <i class="{{ $mn->icon }}"></i>
                             <span>{{ $mn->name }}</span>
                         </a>
                         {{-- Print sub menu if true --}}
