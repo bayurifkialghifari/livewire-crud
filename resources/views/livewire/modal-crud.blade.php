@@ -61,12 +61,16 @@
                                             wire:model.lazy="crud_value.{{ $cf->field }}">
                                             <option value="">--Select {{ $cf->display_name ?? $cf->field }}--</option>
                                             {{-- Get value select --}}
-                                            @if($cf->source)
+                                            @if(!is_array($cf->source))
                                                 @php
                                                     $source = \Illuminate\Support\Facades\DB::table($cf->source)->get();
                                                 @endphp
                                                 @foreach ($source as $src)
                                                     <option value="{{ $src->{$cf->source_id} }}">{{ $src->{$cf->source_value} }}</option>
+                                                @endforeach
+                                            @else
+                                                @foreach ($cf->source as $src)
+                                                    <option value="{{ $src[$cf->source_id] }}">{{ $src[$cf->source_value] }}</option>
                                                 @endforeach
                                             @endif
                                         </select>

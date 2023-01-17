@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Bread extends Model
 {
@@ -15,6 +16,13 @@ class Bread extends Model
         'primary_key', 'order_by', 'order', 'is_join',
         'custom_button', 'controller', 'description',
     ];
+
+    public static function booted()
+    {
+        self::saving(function($model) {
+            $model->url_slug = Str::slug($model->name);
+        });
+    }
 
     public function bread_join()
     {

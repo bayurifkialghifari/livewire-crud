@@ -115,6 +115,13 @@
                 }
             })
 
+            // Redirect
+            window.livewire.on('redirect', (url = '', timeout = '1000') => {
+                setTimeout(() => {
+                    window.location.href = url
+                }, timeout)
+            })
+
         })
     </script>
     @stack('scripts')

@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use Spatie\Permission\Models\Role as Roles;
+use App\Models\Bread as Breads;
 
 class Bread extends Component
 {
@@ -16,7 +16,7 @@ class Bread extends Component
         'isUpdate',
         'isCreate',
     ];
-    public $searchable = ['name'];
+    public $searchable = ['name', 'url_slug', 'icon', 'table_name', 'primary_key', 'order_by', 'order', 'is_join'];
     public $search = '',
         $paginate = 10,
         $orderBy = 'name',
@@ -30,7 +30,7 @@ class Bread extends Component
         $active_menu = ['BREAD'];
 
         // Get data
-        $sql = Roles::orderBy($this->orderBy, $this->order)->latest();
+        $sql = Breads::orderBy($this->orderBy, $this->order)->latest();
         $data = $sql->paginate($this->paginate);
 
         // Search data
@@ -62,7 +62,7 @@ class Bread extends Component
     // Delete data
     public function destroy($id)
     {
-        $exe = Roles::find($id);
+        $exe = Breads::find($id);
         $exe->delete();
 
         $this->emit('alert', 'Delete data success');
@@ -72,18 +72,5 @@ class Bread extends Component
     public function confirmDelete($id)
     {
         $this->emit('confirm', $id);
-    }
-
-    // Set status update true
-    public function isUpdate($id)
-    {
-        $this->emitTo('modal-crud', 'getDetail', $id);
-        $this->emitTo('modal-crud', 'isUpdate');
-    }
-
-    // Set status update false
-    public function isCreate()
-    {
-        $this->emitTo('modal-crud', 'isCreate');
     }
 }
