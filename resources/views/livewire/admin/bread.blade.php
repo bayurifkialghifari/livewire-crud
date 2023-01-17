@@ -146,11 +146,11 @@
                                             <td class="text-center">
                                                 @if($d->is_join == 1)
                                                     <a class="btn btn-primary btn-sm"
-                                                        href="{{ url('admin/bread/join' . $d->id) }}">
+                                                        href="{{ url('admin/bread/join/' . $d->id) }}">
                                                         <i class="bi bi-table"></i> Table Join
                                                     </a>
                                                 @endif
-                                                <a class="btn btn-primary btn-sm" href="{{ url('/admin/bread/update') }}">
+                                                <a class="btn btn-primary btn-sm" href="{{ url('/admin/bread/update/' . $d->id) }}">
                                                     <i class="bi bi-pencil"></i> Update
                                                 </a>
                                                 <button class="btn btn-danger btn-sm"

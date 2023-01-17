@@ -9,10 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class BreadCreateUpdate extends Component
 {
-    public $values = [
-        'order' => 'ASC',
-        'is_join' => '0',
-    ];
+    public $values = [];
     public $list_db_table;
     public $primary_key;
     // Excluded from list db table
@@ -37,6 +34,44 @@ class BreadCreateUpdate extends Component
     ];
     // List all column from table
     public $columns = [];
+    // is Update
+    public $isUpdate = false;
+    public $ids;
+
+    // Mount data
+    public function mount($id = null) {
+        // Check update or create
+        if($id) {
+            $detail = Bread::find($id);
+
+            $this->isUpdate = true;
+            $this->ids = $id;
+
+            // Set value
+            $this->values = [
+                'name' => $detail->name,
+                'display_name_singular' => $detail->display_name_singular,
+                'display_name_plural' => $detail->display_name_plural,
+                'table_name' => $detail->table_name,
+                'primary_key' => $detail->primary_key,
+                'order' => $detail->order,
+                'is_join' => $detail->is_join,
+                'custom_controller' => $detail->custom_controller,
+                'custom_button' => $detail->custom_button,
+                'description' => $detail->description,
+            ];
+
+            // Set order by
+            $this->getDetailTable();
+
+            $this->values['order_by'] = $detail->order_by;
+        } else {
+            $this->values = [
+                'order' => 'ASC',
+                'is_join' => '0',
+            ];
+        }
+    }
 
     // Rules input
     protected function rules()
@@ -81,10 +116,19 @@ class BreadCreateUpdate extends Component
     public function save() {
         $this->validate();
 
-        $exe = Bread::create($this->values);
+        $message;
+
+        if($this->isUpdate) {
+            $message = 'Data updated';
+            $exe = Bread::find($this->ids);
+            $exe = $exe->update($this->values);
+        } else {
+            $message = 'Data created';
+            $exe = Bread::create($this->values);
+        }
 
         // Alert
-        $this->emit('alert', 'Data created');
+        $this->emit('alert', $message);
         $this->emit('redirect', url('admin/bread'));
     }
 
