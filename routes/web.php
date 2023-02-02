@@ -38,6 +38,7 @@ Route::group([
     Route::get('/bread', App\Http\Livewire\Admin\Bread::class);
     Route::get('/bread/create', App\Http\Livewire\Admin\BreadCreateUpdate::class);
     Route::get('/bread/update/{id}', App\Http\Livewire\Admin\BreadCreateUpdate::class);
+    Route::get('/bread/join/{id}', App\Http\Livewire\Admin\BreadJoin::class);
 
     // Settings
     Route::get('/setting-role', App\Http\Livewire\Admin\Settings\Role::class);

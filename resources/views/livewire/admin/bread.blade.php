@@ -69,16 +69,6 @@
                                             @endif
                                             URL
                                         </th>
-                                        <th wire:click="changeOrder('icon')" style="cursor: pointer">
-                                            @if($orderBy == 'icon')
-                                                @if($order == 'asc')
-                                                    <i class="bi bi-caret-up-fill"></i>
-                                                @else
-                                                    <i class="bi bi-caret-down-fill"></i>
-                                                @endif
-                                            @endif
-                                            Icon
-                                        </th>
                                         <th wire:click="changeOrder('table_name')" style="cursor: pointer">
                                             @if($orderBy == 'table_name')
                                                 @if($order == 'asc')
@@ -137,7 +127,6 @@
                                         <tr>
                                             <td>{{ $d->name }}</td>
                                             <td>{{ $d->url_slug }}</td>
-                                            <td>{{ $d->icon }}</td>
                                             <td>{{ $d->table_name }}</td>
                                             <td>{{ $d->primary_key }}</td>
                                             <td>{{ $d->order_by }}</td>

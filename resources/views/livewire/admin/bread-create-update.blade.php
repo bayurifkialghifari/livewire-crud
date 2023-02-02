@@ -86,8 +86,8 @@
                             @php
                                 $val = json_decode(json_encode($table), true);
                             @endphp
-                            @if(!in_array($val['Tables_in_voyager-livewire'], $exluded_table))
-                                <option value="{{ $val['Tables_in_voyager-livewire'] }}">{{ $val['Tables_in_voyager-livewire'] }}</option>
+                            @if(!in_array($val['Tables_in_' . env('DB_DATABASE')], $exluded_table))
+                            <option value="{{ $val['Tables_in_' . env('DB_DATABASE')] }}">{{ $val['Tables_in_' . env('DB_DATABASE')] }}</option>
                             @endif
                         @endforeach
                     </select>

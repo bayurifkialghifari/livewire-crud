@@ -16,7 +16,7 @@ class Bread extends Component
         'isUpdate',
         'isCreate',
     ];
-    public $searchable = ['name', 'url_slug', 'icon', 'table_name', 'primary_key', 'order_by', 'order', 'is_join'];
+    public $searchable = ['name', 'url_slug', 'table_name', 'primary_key', 'order_by', 'order', 'is_join'];
     public $search = '',
         $paginate = 10,
         $orderBy = 'name',
