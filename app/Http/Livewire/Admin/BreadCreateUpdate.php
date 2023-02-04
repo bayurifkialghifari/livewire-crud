@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Admin;
 
+use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\Bread;
+use App\Models\BreadField;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
@@ -125,6 +127,7 @@ class BreadCreateUpdate extends Component
         } else {
             $message = 'Data created';
             $exe = Bread::create($this->values);
+            $this->createBreadField($exe->id);
         }
 
         // Alert
@@ -150,5 +153,65 @@ class BreadCreateUpdate extends Component
         // Get column data
         $columns = DB::select('SHOW COLUMNS FROM '.$this->values['table_name']);
         $this->columns = $columns;
+    }
+
+    // Create bread field
+    public function createBreadField($id) {
+        $columns = [];
+        foreach($this->columns as $i => $cl) {
+            $field = $cl->Field ?? $cl['Field'];
+            // Not create bread field for created_at and updated_at
+            if($field != 'created_at' || $field != 'updated_at' || $field != $this->values['primary_key']) {
+                // 'foreign_table' => null,
+                // 'foreign_key' => null,
+                // 'foreign_field' => null,
+                array_push($columns, [
+                    'bread_id' => $id,
+                    'field' => $field,
+                    'type' => $this->checkType($cl->Type ?? $cl['Type']),
+                    'display_name' => Str::title($field),
+                    'placeholder' => '',
+                    'class_alt' => '',
+                    'default_value' => '',
+                    'id_alt' => '',
+                    'is_required' => 0,
+                    'is_readonly' => 0,
+                    'is_searchable' => 1,
+                    'is_browse' => 1,
+                    'is_edit' => 1,
+                    'is_add' => 1,
+                    'source' => '',
+                    'source_id' => '',
+                    'source_value' => '',
+                    'file_accept' => '',
+                    'description' => '',
+                    'description_class' => '',
+                    'order' => '',
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]);
+            }
+        }
+
+        $exe = BreadField::insert($columns);
+    }
+
+    // Check type
+    public function checkType($field_type) {
+        $type = 'text';
+
+        if(strpos($field_type, 'int')) {
+            $type = 'number';
+        } else if(strpos($field_type, 'char')) {
+            $type = 'text';
+        } else if(strpos($field_type, 'text')) {
+            $type = 'textarea';
+        } else if(strpos($field_type, 'date')) {
+            $type = 'date';
+        } else if(strpos($field_type, 'time')) {
+            $type = 'time';
+        }
+
+        return $type;
     }
 }

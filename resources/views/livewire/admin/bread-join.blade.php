@@ -5,7 +5,7 @@
                 <a href="{{ url('admin') }}">Dashboard</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="{{ url('admin') }}/bread">BREAD {{ $bread->name }}</a>
+                <a href="{{ url('admin') }}/bread">BREAD {{ ucwords($bread->table_name) }}</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">
                 Join

@@ -15,7 +15,7 @@ class BreadField extends Model
         'placeholder', 'class_alt', 'default_value', 'id_alt',
         'is_required', 'is_searchable', 'is_browse', 'is_readonly',
         'is_edit', 'is_add', 'source', 'source_id', 'source_value',
-        'file_accept', 'description', 'description_class', 'order',
+        'file_accept', 'description', 'description_class',
     ];
 
     public function bread()

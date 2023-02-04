@@ -139,6 +139,9 @@
                                                         <i class="bi bi-table"></i> Table Join
                                                     </a>
                                                 @endif
+                                                <a class="btn btn-primary btn-sm" href="{{ url('/admin/bread/field/' . $d->id) }}">
+                                                    <i class="bi bi-intersect"></i> Field
+                                                </a>
                                                 <a class="btn btn-primary btn-sm" href="{{ url('/admin/bread/update/' . $d->id) }}">
                                                     <i class="bi bi-pencil"></i> Update
                                                 </a>

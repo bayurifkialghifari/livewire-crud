@@ -13,8 +13,6 @@ class Bread extends Component
     protected $listeners = [
         'delete' => 'destroy',
         'refresh' => '$refresh',
-        'isUpdate',
-        'isCreate',
     ];
     public $searchable = ['name', 'url_slug', 'table_name', 'primary_key', 'order_by', 'order', 'is_join'];
     public $search = '',

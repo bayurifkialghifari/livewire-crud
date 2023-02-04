@@ -3,17 +3,19 @@
 namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\Bread;
 use App\Models\BreadJoin as BreadJoins;
 use Illuminate\Support\Facades\DB;
 
 class BreadJoin extends Component
 {
+    use WithPagination;
+
     protected $listeners = [
         'delete' => 'destroy',
         'refresh' => '$refresh',
         'statusUpdate',
-        'isCreate',
     ];
     public $searchable = [
         'breads.name', 'origin_table', 'origin_key',
@@ -101,7 +103,7 @@ class BreadJoin extends Component
         ->select('bread_joins.*', 'breads.name as bread')
         ->latest();
         $data = $sql->paginate($this->paginate);
-        $title = $bread->name . ' Join';
+        $title = ucwords($bread->table_name) . ' Join';
 
         // Active menu
         $active_menu = ['BREAD', $title];
