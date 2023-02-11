@@ -35,7 +35,7 @@ class MenuSeeder extends Seeder
                 'id' => '3',
                 'index' => '2',
                 'name' => 'BREAD',
-                'url' => '#',
+                'url' => '/admin/bread',
                 'icon' => 'bi bi-patch-plus',
             ],
         ];
