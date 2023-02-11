@@ -217,5 +217,7 @@ class BreadField extends Component
                 'description_class' => $this->crud_value['description_class'][$k],
             ]);
         }
+
+        $this->emit('alert', 'Data saved successfully');
     }
 }

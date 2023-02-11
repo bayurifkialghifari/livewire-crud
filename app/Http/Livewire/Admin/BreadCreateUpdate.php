@@ -186,7 +186,6 @@ class BreadCreateUpdate extends Component
                     'file_accept' => '',
                     'description' => '',
                     'description_class' => '',
-                    'order' => '',
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ]);

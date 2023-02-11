@@ -69,6 +69,7 @@
                                                 <select class="form-control" wire:model="crud_value.type.{{ $d->id }}">
                                                     <option value="text">Text</option>
                                                     <option value="number">Number</option>
+                                                    <option value="hidden">Hidden</option>
                                                     <option value="email">Email</option>
                                                     <option value="password">Password</option>
                                                     <option value="date">Date</option>
