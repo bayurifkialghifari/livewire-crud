@@ -28,6 +28,11 @@ class RoleMenuSeeder extends Seeder
             ],
             [
                 'role_id' => 1,
+                'menu_id' => 3,
+                'sub_menu_id' => null,
+            ],
+            [
+                'role_id' => 1,
                 'menu_id' => null,
                 'sub_menu_id' => 1,
             ],
