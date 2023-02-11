@@ -35,6 +35,23 @@
                     />
                 </div>
             </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>URL</label>
+                    @error("values.url_slug")
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <input
+                        type="text"
+                        class="form-control
+                        @error("values.url_slug")
+                            is-invalid
+                        @enderror"
+                        wire:model="values.url_slug"
+                        placeholder="Url"
+                    />
+                </div>
+            </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Display Name Singular</label>

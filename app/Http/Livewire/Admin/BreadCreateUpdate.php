@@ -52,6 +52,7 @@ class BreadCreateUpdate extends Component
             // Set value
             $this->values = [
                 'name' => $detail->name,
+                'url_slug' => $detail->url_slug,
                 'display_name_singular' => $detail->display_name_singular,
                 'display_name_plural' => $detail->display_name_plural,
                 'table_name' => $detail->table_name,
@@ -80,6 +81,7 @@ class BreadCreateUpdate extends Component
     {
         return [
             'values.name' => 'required',
+            'values.url_slug' => 'required',
             'values.display_name_singular' => 'required',
             'values.display_name_plural' => 'required',
             'values.table_name' => 'required',
@@ -94,6 +96,7 @@ class BreadCreateUpdate extends Component
     {
         return [
             'values.name.required' => 'Name is required',
+            'values.url_slug.required' => 'URL is required',
             'values.display_name_singular.required' => 'Singular Name is required',
             'values.display_name_plural.required' => 'Plural Name is required',
             'values.table_name.required' => 'Table name is required',
@@ -139,6 +142,7 @@ class BreadCreateUpdate extends Component
     public function getSingularPlural() {
         $this->values['display_name_plural'] = Str::plural($this->values['name']);
         $this->values['display_name_singular'] = Str::singular($this->values['name']);
+        $this->values['url_slug'] = Str::slug($this->values['name']);
     }
 
     // Get detail table data
