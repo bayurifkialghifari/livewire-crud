@@ -10,5 +10,5 @@
 
 Login
 
-username : administrator@gmail.com
+username : administrator@gmail.com <br>
 password : 123456
