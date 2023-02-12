@@ -4,7 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Bread;
 use App\Models\BreadField;
-// use Illuminate\Support\Facades\DB;
+use App\Models\BreadJoin;
+use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 use Livewire\Component;
 
@@ -19,6 +20,7 @@ class BreadAction extends Component
         'isCreate',
     ];
     public $searchable = [];
+    public $displayed = [];
     public $search = '',
         $bread_id,
         $bread_slug,
@@ -54,12 +56,60 @@ class BreadAction extends Component
                     array_push($this->searchable, $this->table_name . '.' . $field->field);
                 }
             }
+
+            // Displayed fields
+            if($field->is_browse == 1) {
+                // If foreign
+                if ($field->foreign_table) {
+                    array_push($this->displayed, $field->foreign_table . '.' . $field->foreign_field . ' as ' . $field->foreign_table . $field->foreign_field);
+                //
+                } else {
+                    array_push($this->displayed, $this->table_name . '.' . $field->field);
+                }
+            }
         }
     }
 
     public function render()
     {
-        // $data = ;
-        return view('livewire.bread-action');
+        // Get data
+        $sql = DB::table($this->bread_detail->table_name)->select($this->displayed);
+
+        // Check if is join
+        if($this->bread_detail->is_join == 1) {
+            $table_join = BreadJoin::where('bread_id', $this->bread_detail->id)->get();
+
+            // Join the table
+            foreach($table_join as $tj) {
+                // Left
+                if($tj->join_type == 'left') {
+                    $sql->leftJoin($tj->foreign_table, $tj->foreign_table . '.' . $tj->foreign_key, '=', $tj->origin_table . '.' . $tj->origin_key);
+                // Right
+                } else if($tj->join_type == 'right') {
+                    $sql->rightJoin($tj->foreign_table, $tj->foreign_table . '.' . $tj->foreign_key, '=', $tj->origin_table . '.' . $tj->origin_key);
+                } else {
+                    $sql->join($tj->foreign_table, $tj->foreign_table . '.' . $tj->foreign_key, '=', $tj->origin_table . '.' . $tj->origin_key);
+                }
+            }
+        }
+
+        // Order by
+        $sql = $sql->orderBy($this->bread_detail->order_by, $this->bread_detail->order); // ->latest()
+        $data = $sql->paginate($this->paginate);
+
+        // Search data
+        if ($this->search != null) {
+            $data = $sql;
+
+            foreach ($this->searchable as $field) {
+                $data = $data->orWhere($field, 'like', "%{$this->search}%");
+            }
+
+            $data = $data->paginate($this->paginate);
+
+            $this->resetPage();
+        }
+
+        return view('livewire.bread-action', compact('data'));
     }
 }

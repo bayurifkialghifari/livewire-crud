@@ -77,13 +77,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @forelse ($data as $d)
+                                    @forelse ($data as $d)
                                         <tr>
-                                            <td>{{ $d->name }}</td>
-                                            <td>{{ $d->index }}</td>
-                                            <td>{{ $d->url }}</td>
-                                            <td>{{ $d->class ?? '-' }}</td>
-                                            <td>{{ $d->icon }}</td>
+                                            @foreach($fields as $th)
+                                                @if($th->is_browse == 1)
+                                                    @php
+                                                        $dp = $th->field;
+
+                                                        // If foreign table
+                                                        if($th->foreign_table) {
+                                                            $dp = $th->foreign_table . $th->foreign_field;
+                                                        }
+                                                    @endphp
+                                                    <td>{{ $d->{$dp} }}</td>
+                                                @endif
+                                            @endforeach
                                             <td class="text-center">
                                                 <a class="btn btn-primary btn-sm"
                                                     href="{{ url('admin/setting-menu/sub-menu/' . $d->id) }}">
@@ -104,10 +112,10 @@
                                         <tr class="text-center">
                                             <td colspan="10">Data empty</td>
                                         </tr>
-                                    @endforelse --}}
+                                    @endforelse
                                 </tbody>
                             </table>
-                            {{-- {{ $data->links('livewire.pagination') }} --}}
+                            {{ $data->links('livewire.pagination') }}
                         </div>
                     </div>
                 </div>

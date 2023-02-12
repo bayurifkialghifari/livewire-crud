@@ -63,6 +63,7 @@ class BreadJoin extends Component
             'bread_id' => $id,
             'origin_table' => $bread->table_name,
             'origin_key' => $bread->primary_key,
+            'join_type' => 'left',
         ];
     }
 
