@@ -91,7 +91,7 @@
                                                 @if (count($sub_menus))
                                                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                                         data-bs-target="#modal-sub-menu"
-                                                        wire:click="getSubMenu('{{ $d->id }}')">
+                                                        wire:click="getSubMenu('{{ $d->menu_id }}')">
                                                         <i class="bi bi-menu-down"></i> Sub Menu
                                                     </button>
                                                 @endif
