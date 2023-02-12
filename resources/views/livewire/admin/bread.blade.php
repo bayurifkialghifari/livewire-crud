@@ -126,7 +126,11 @@
                                     @forelse ($data as $d)
                                         <tr>
                                             <td>{{ $d->name }}</td>
-                                            <td>{{ $d->url_slug }}</td>
+                                            <td>
+                                                <a href="{{ url('/admin/bread/action/'.$d->url_slug) }}" target="_blank">
+                                                    /admin/bread/action/{{ $d->url_slug }}
+                                                </a>
+                                            </td>
                                             <td>{{ $d->table_name }}</td>
                                             <td>{{ $d->primary_key }}</td>
                                             <td>{{ $d->order_by }}</td>

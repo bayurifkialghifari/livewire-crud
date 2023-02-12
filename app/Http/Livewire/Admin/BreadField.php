@@ -112,7 +112,8 @@ class BreadField extends Component
         $bread_id = $this->bread_id;
         $bread = Bread::find($bread_id);
         $sql = BreadFields::leftJoin('breads', 'breads.id', '=', 'bread_fields.bread_id')
-        ->select('bread_fields.*', 'breads.table_name as bread');
+        ->select('bread_fields.*', 'breads.table_name as bread')
+        ->where('bread_fields.bread_id', $bread_id);
         $data = $sql->get();
         $title = ucwords($bread->table_name) . ' Fields';
 

@@ -165,14 +165,14 @@ class BreadCreateUpdate extends Component
         foreach($this->columns as $i => $cl) {
             $field = $cl->Field ?? $cl['Field'];
             // Not create bread field for created_at and updated_at
-            if($field != 'created_at' || $field != 'updated_at' || $field != $this->values['primary_key']) {
+            if($field != 'created_at' && $field != 'updated_at') {
                 // 'foreign_table' => null,
                 // 'foreign_key' => null,
                 // 'foreign_field' => null,
                 array_push($columns, [
                     'bread_id' => $id,
                     'field' => $field,
-                    'type' => $this->checkType($cl->Type ?? $cl['Type']),
+                    'type' => $field == $this->values['primary_key'] ? 'hidden' : $this->checkType($cl->Type ?? $cl['Type']),
                     'display_name' => Str::title($field),
                     'placeholder' => '',
                     'class_alt' => '',
