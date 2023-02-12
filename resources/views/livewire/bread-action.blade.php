@@ -4,12 +4,15 @@
             <li class="breadcrumb-item">
                 <a href="{{ url('admin') }}">Dashboard</a>
             </li>
-            <li class="breadcrumb-item">
-                <a href="#">Setting</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">
-                Menu
-            </li>
+            @foreach($active_menu as $k => $v)
+
+                <li class="breadcrumb-item
+                    @if($k === array_key_last($active_menu))
+                        active
+                    @endif">
+                    <a href="#">{{$v}}</a>
+                </li>
+            @endforeach
         </ol>
     </nav>
 @endpush
@@ -93,10 +96,6 @@
                                                 @endif
                                             @endforeach
                                             <td class="text-center">
-                                                <a class="btn btn-primary btn-sm"
-                                                    href="{{ url('admin/setting-menu/sub-menu/' . $d->id) }}">
-                                                    <i class="bi bi-menu-down"></i> Sub Menu
-                                                </a>
                                                 <a class="btn btn-primary btn-sm"
                                                     wire:click="isUpdate('{{ $d->id }}')" data-bs-toggle="modal"
                                                     data-bs-target="#modal-crud">

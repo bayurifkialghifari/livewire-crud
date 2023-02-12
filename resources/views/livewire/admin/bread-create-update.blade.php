@@ -7,8 +7,8 @@
             <li class="breadcrumb-item">
                 <a href="{{ url('admin/bread') }}">BREAD</a>
             </li>
-            <li class="breadcrumb-item">
-                <a href="#">Create</a>
+            <li class="breadcrumb-item active" aria-current="page">
+                {{ $isUpdate ? 'Update' : 'Create' }}
             </li>
         </ol>
     </nav>

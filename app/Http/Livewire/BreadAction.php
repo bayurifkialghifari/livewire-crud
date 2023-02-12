@@ -28,8 +28,9 @@ class BreadAction extends Component
         $table_name,
         $fields = [],
         $paginate = 10,
-        $orderBy,
-        $order,
+        $orderBy = '',
+        $order = '',
+        $breadcrumb = [],
         $update = false;
 
     // Mount data
@@ -42,7 +43,7 @@ class BreadAction extends Component
         $this->bread_slug = $slug;
         $this->bread_id = $this->bread_detail->id;
         $this->table_name = $this->bread_detail->table_name;
-        $this->orderBy = $this->bread_detail->order_by;
+        $this->orderBy = $this->bread_detail->table_name . '.' . $this->bread_detail->order_by;
         $this->order = $this->bread_detail->order;
 
         foreach ($this->fields as $field) {
@@ -76,7 +77,7 @@ class BreadAction extends Component
         $active_menu = explode(',', $this->bread_detail->active_menu);
 
         // Get data
-        $sql = DB::table($this->bread_detail->table_name)->select($this->displayed);
+        $sql = DB::table($this->table_name)->select($this->displayed);
 
         // Check if is join
         if($this->bread_detail->is_join == 1) {
@@ -97,7 +98,7 @@ class BreadAction extends Component
         }
 
         // Order by
-        $sql = $sql->orderBy($this->bread_detail->order_by, $this->bread_detail->order); // ->latest()
+        $sql = $sql->orderBy($this->orderBy, $this->order); // ->latest()
         $data = $sql->paginate($this->paginate);
 
         // Search data
@@ -113,6 +114,16 @@ class BreadAction extends Component
             $this->resetPage();
         }
 
-        return view('livewire.bread-action', compact('data'))->layoutData(compact('active_menu'));;
+        return view('livewire.bread-action', compact('data', 'active_menu'))->layoutData(compact('active_menu'));;
+    }
+
+    // Order by
+    public function changeOrder($orderBy)
+    {
+        if ($this->orderBy == $orderBy) {
+            $this->order = $this->order == 'desc' ? 'asc' : 'desc';
+        }
+
+        $this->orderBy = $orderBy;
     }
 }

@@ -5,7 +5,7 @@
                 <a href="{{ url('admin') }}">Dashboard</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="#">BREAD</a>
+                BREAD
             </li>
         </ol>
     </nav>
