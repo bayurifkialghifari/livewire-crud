@@ -139,13 +139,11 @@
             'join_type' => 'left',
         ],
     ],
-    'is_bread' => false,
     'table_name' => 'users',
     'primary_key' => 'id',
     'statusUpdate' => false,
     'insert_message' => 'Data created',
     'update_message' => 'Data updated',
-    'crud' => [],
     'crud_field' => [
         [
             'field' => 'roles-id',

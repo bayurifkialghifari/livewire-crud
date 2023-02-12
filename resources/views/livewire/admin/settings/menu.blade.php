@@ -149,13 +149,11 @@
 @livewire('modal-crud', [
     'title' => 'Menu',
     'is_join' => false,
-    'is_bread' => false,
     'table_name' => 'menus',
     'primary_key' => 'id',
     'statusUpdate' => false,
     'insert_message' => 'Data created',
     'update_message' => 'Data updated',
-    'crud' => [],
     'crud_field' => [
         [
             'field' => 'name',

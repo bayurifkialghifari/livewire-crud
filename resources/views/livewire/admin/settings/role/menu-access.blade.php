@@ -156,13 +156,11 @@
 @livewire('modal-crud', [
     'title' => 'Menu Acess ' . ucfirst($role->name),
     'is_join' => false,
-    'is_bread' => false,
     'table_name' => 'role_has_menus',
     'primary_key' => 'id',
     'statusUpdate' => false,
     'insert_message' => 'Data created',
     'update_message' => 'Data updated',
-    'crud' => [],
     'crud_field' => [
         [
             'field' => 'role_id',

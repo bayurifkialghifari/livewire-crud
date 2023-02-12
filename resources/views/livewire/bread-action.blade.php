@@ -124,9 +124,9 @@
 </section>
 
 @livewire('modal-crud', [
-    'title' => 'Menu',
-    'is_join' => false,
-    'is_bread' => false,
+    'title' => $bread_detail->name,
+    'is_join' => $bread_detail->is_join,
+    'is_bread' => true,
     'table_name' => 'menus',
     'primary_key' => 'id',
     'statusUpdate' => false,

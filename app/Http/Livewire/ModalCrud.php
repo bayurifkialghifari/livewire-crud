@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Carbon\Carbon;
 use Livewire\Component;
+use App\Models\Bread;
 use Illuminate\Support\Facades\DB;
 
 class ModalCrud extends Component
@@ -21,14 +22,12 @@ class ModalCrud extends Component
     public $is_join = false;
     public $join = [];
     public $is_submit = true;
-    public $is_bread = true;
     public $table_name = '';
     public $primary_key = 'id';
     public $statusUpdate = false;
     public $insert_message = 'Data created';
     public $update_message = 'Data updated';
     public $bread_slug = '';
-    public $crud;
     public $crud_field = [];
     public $crud_rules = [];
     public $crud_rule_messages = [];
@@ -36,12 +35,6 @@ class ModalCrud extends Component
 
     public function render()
     {
-        // Check crud model and field
-        if ($this->is_bread) {
-            $this->crud = Bread::where('url_slug', $this->bread_slug)->first();
-            $this->crud_field = BreadField::where('bread_id', $this->crud->id)->get();
-        }
-
         return view('livewire.modal-crud');
     }
 
@@ -65,15 +58,8 @@ class ModalCrud extends Component
             $this->validate();
         }
 
-        $model;
         $alert_message;
-
-        // Check if bread
-        if ($this->is_bread) {
-            $model = DB::table($this->crud->table_name);
-        } else {
-            $model = DB::table($this->table_name);
-        }
+        $model = DB::table($this->table_name);
 
         // Is join check crud value
         if($this->is_join) {
@@ -160,14 +146,7 @@ class ModalCrud extends Component
     // Get detail data
     public function getDetail($id)
     {
-        $model;
-
-        // Check if bread
-        if ($this->is_bread) {
-            $model = DB::table($this->crud->table_name);
-        } else {
-            $model = DB::table($this->table_name);
-        }
+        $model = DB::table($this->table_name);
 
         // Select data
         $select = '*';

@@ -126,4 +126,32 @@ class BreadAction extends Component
 
         $this->orderBy = $orderBy;
     }
+
+    // Delete data
+    public function destroy($id)
+    {
+        $exe = DB::table($this->table_name)->where($this->bread_detail->primary_key, $id);
+        $exe->delete();
+
+        $this->emit('alert', 'Delete data success');
+    }
+
+    // Confirm delete
+    public function confirmDelete($id)
+    {
+        $this->emit('confirm', $id);
+    }
+
+    // Set status update true
+    public function isUpdate($id)
+    {
+        $this->emitTo('modal-crud', 'getDetail', $id);
+        $this->emitTo('modal-crud', 'isUpdate');
+    }
+
+    // Set status update false
+    public function isCreate()
+    {
+        $this->emitTo('modal-crud', 'isCreate');
+    }
 }
