@@ -125,6 +125,7 @@
 @livewire('modal-crud', [
     'title' => $bread_detail->name,
     'is_join' => $bread_detail->is_join,
+    'join' => $crud_join,
     'table_name' => $table_name,
     'primary_key' => $bread_detail->primary_key,
     'statusUpdate' => false,

@@ -157,13 +157,13 @@ class ModalCrud extends Component
                 // Check type join
                 switch ($join['join_type']) {
                     case 'left':
-                        $model = $model->leftJoin($join['origin_table'], $join['origin_table'] . '.' . $join['origin_key'], '=', $join['foreign_table'] . '.' . $join['foreign_key']);
+                        $model = $model->leftJoin($join['foreign_table'], $join['origin_table'] . '.' . $join['origin_key'], '=', $join['foreign_table'] . '.' . $join['foreign_key']);
                         break;
                     case 'right':
-                        $model = $model->rightJoin($join['origin_table'], $join['origin_table'] . '.' . $join['origin_key'], '=', $join['foreign_table'] . '.' . $join['foreign_key']);
+                        $model = $model->rightJoin($join['foreign_table'], $join['origin_table'] . '.' . $join['origin_key'], '=', $join['foreign_table'] . '.' . $join['foreign_key']);
                         break;
                     default:
-                        $model = $model->join($join['origin_table'], $join['origin_table'] . '.' . $join['origin_key'], '=', $join['foreign_table'] . '.' . $join['foreign_key']);
+                        $model = $model->join($join['foreign_table'], $join['origin_table'] . '.' . $join['origin_key'], '=', $join['foreign_table'] . '.' . $join['foreign_key']);
                 }
             }
 

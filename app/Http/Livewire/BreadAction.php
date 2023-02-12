@@ -32,6 +32,7 @@ class BreadAction extends Component
         $order = '',
         $crud_field = [],
         $crud_value = [],
+        $crud_join = [],
         $update = false;
 
     // Mount data
@@ -71,9 +72,9 @@ class BreadAction extends Component
             }
 
             // Crud field and value
-            $this->crud_value[$field->foreign_table ? $field->foreign_table . '-' . $field->foreign_key  : $field->field] = '';
+            $this->crud_value[$field->foreign_table ? $field->foreign_table . '-' . $field->foreign_field  : $field->field] = '';
             array_push($this->crud_field, [
-                'field' => $field->foreign_table ? $field->foreign_table . '-' . $field->foreign_key  : $field->field,
+                'field' => $field->foreign_table ? $field->foreign_table . '-' . $field->foreign_field  : $field->field,
                 'foreign_table' => $field->foreign_table,
                 'foreign_key' => $field->foreign_key,
                 'foreign_field' => $field->foreign_field,
@@ -117,6 +118,15 @@ class BreadAction extends Component
                 } else {
                     $sql->join($tj->foreign_table, $tj->foreign_table . '.' . $tj->foreign_key, '=', $tj->origin_table . '.' . $tj->origin_key);
                 }
+
+                // Crud join
+                array_push($this->crud_join, [
+                    'origin_table' => $tj->origin_table,
+                    'origin_key' => $tj->origin_key,
+                    'foreign_table' => $tj->foreign_table,
+                    'foreign_key' => $tj->foreign_key,
+                    'join_type' => $tj->join_type,
+                ]);
             }
         }
 
