@@ -4,11 +4,14 @@ namespace App\Http\Livewire;
 
 use Carbon\Carbon;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use App\Models\Bread;
 use Illuminate\Support\Facades\DB;
 
 class ModalCrud extends Component
 {
+    use WithFileUploads;
+
     // Function Listener
     protected $listeners = ['getDetail', 'isCreate', 'isUpdate'];
 
@@ -68,6 +71,19 @@ class ModalCrud extends Component
                 if (strpos($key, '-')) {
                     $crud_value_temp[$key] = $val;
                     unset($this->crud_value[$key]);
+                }
+            }
+        }
+
+        // Upload file
+        foreach ($this->crud_field as $cf) {
+            if ($cf['type'] == 'file') {
+                // If file exist
+                if($this->crud_value[$cf['field']]) {
+                    // File name
+                    $filename = $this->table_name . '_' . date('d-m-Y') . '_' . uniqid() . '.' . $this->crud_value[$cf['field']]->extension();
+                    $this->crud_value[$cf['field']]->storeAs('public/bread_uploads', $filename);
+                    $this->crud_value[$cf['field']] = $filename;
                 }
             }
         }
