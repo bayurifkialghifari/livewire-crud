@@ -30,7 +30,8 @@ class BreadAction extends Component
         $paginate = 10,
         $orderBy = '',
         $order = '',
-        $breadcrumb = [],
+        $crud_field = [],
+        $crud_value = [],
         $update = false;
 
     // Mount data
@@ -68,6 +69,28 @@ class BreadAction extends Component
                     array_push($this->displayed, $this->table_name . '.' . $field->field);
                 }
             }
+
+            // Crud field and value
+            $this->crud_value[$field->foreign_table ? $field->foreign_table . '-' . $field->foreign_key  : $field->field] = '';
+            array_push($this->crud_field, [
+                'field' => $field->foreign_table ? $field->foreign_table . '-' . $field->foreign_key  : $field->field,
+                'foreign_table' => $field->foreign_table,
+                'foreign_key' => $field->foreign_key,
+                'foreign_field' => $field->foreign_field,
+                'type' => $field->type,
+                'display_name' => $field->display_name,
+                'placeholder' => $field->placeholder,
+                'class_alt' => $field->class_alt,
+                'id_alt' => $field->id_alt,
+                'is_required' => $field->is_required,
+                'description' => $field->description,
+                'description_class' => $field->description_class,
+                'file_accept' => $field->type == 'file' ? $field->file_accept : null,
+                'default_value' => $field->default_value,
+                'source' => $field->field == 'select' ? $field->source : null,
+                'source_id' => $field->field == 'select' ? $field->source_id : null,
+                'source_value' => $field->field == 'select' ? $field->source_value : null,
+            ]);
         }
     }
 
