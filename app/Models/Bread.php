@@ -14,7 +14,7 @@ class Bread extends Model
         'name', 'url_slug', 'display_name_singular',
         'display_name_plural', 'icon', 'table_name',
         'primary_key', 'order_by', 'order', 'is_join',
-        'custom_button', 'controller', 'description',
+        'custom_button', 'active_menu', 'description',
     ];
 
     public static function booted()

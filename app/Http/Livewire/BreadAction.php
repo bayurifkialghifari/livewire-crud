@@ -72,6 +72,9 @@ class BreadAction extends Component
 
     public function render()
     {
+        // Active menu
+        $active_menu = explode(',', $this->bread_detail->active_menu);
+
         // Get data
         $sql = DB::table($this->bread_detail->table_name)->select($this->displayed);
 
@@ -110,6 +113,6 @@ class BreadAction extends Component
             $this->resetPage();
         }
 
-        return view('livewire.bread-action', compact('data'));
+        return view('livewire.bread-action', compact('data'))->layoutData(compact('active_menu'));;
     }
 }

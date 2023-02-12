@@ -59,7 +59,7 @@ class BreadCreateUpdate extends Component
                 'primary_key' => $detail->primary_key,
                 'order' => $detail->order,
                 'is_join' => $detail->is_join,
-                'custom_controller' => $detail->custom_controller,
+                'active_menu' => $detail->active_menu,
                 'custom_button' => $detail->custom_button,
                 'description' => $detail->description,
             ];

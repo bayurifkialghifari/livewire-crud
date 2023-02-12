@@ -174,12 +174,12 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>Custom Controller</label>
-                    <input wire:model.lazy="values.controller" class="form-control
-                        @error("values.controller")
+                    <label>Active Menu</label>
+                    <input wire:model.lazy="values.active_menu" class="form-control
+                        @error("values.active_menu")
                             is-invalid
                         @enderror"
-                        placeholder="Custom Controller"
+                        placeholder="Active menu ex (Setting,Role) => Setting parent menu and Role child menu"
                     />
                 </div>
             </div>
