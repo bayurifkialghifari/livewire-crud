@@ -84,6 +84,8 @@ class ModalCrud extends Component
                     $filename = $this->table_name . '_' . date('d-m-Y') . '_' . uniqid() . '.' . $this->crud_value[$cf['field']]->extension();
                     $this->crud_value[$cf['field']]->storeAs('public/bread_uploads', $filename);
                     $this->crud_value[$cf['field']] = $filename;
+                } else {
+                    unset($this->crud_value[$cf['field']]);
                 }
             }
         }
@@ -225,6 +227,11 @@ class ModalCrud extends Component
         if ($val['type'] !== 'password') {
             $this->crud_value[$val['field']] = $model[$val['field']];
         } else {
+            $this->crud_value[$val['field']] = '';
+        }
+
+        // File
+        if($val['type'] == 'file') {
             $this->crud_value[$val['field']] = '';
         }
     }

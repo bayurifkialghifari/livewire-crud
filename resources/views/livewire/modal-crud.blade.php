@@ -87,7 +87,7 @@
                                                 {{ $cf->is_readonly ? 'readonly' : '' }}
                                             @endif
                                             {{ $cf->id_alt ? "id='{$cf->id_alt}'" : '' }}
-                                            {{ $cf->file_accept ? "accept='{$cf->file_accept}'" : '' }}
+                                            {{ $cf->file_accept ? "accept={$cf->file_accept}" : '' }}
                                             wire:model.lazy="crud_value.{{ $cf->field }}">
                                     @endif
                                     @error("crud_value.$cf->field")
